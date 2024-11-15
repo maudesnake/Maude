@@ -1,0 +1,93 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(to bottom, #3a6186, #89253e);
+    color: #fff;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+#container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+#game-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#game-board {
+    width: 400px;
+    height: 400px;
+    background-color: #222;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    display: grid;
+    grid-template-columns: repeat(20, 1fr);
+    grid-template-rows: repeat(20, 1fr);
+}
+
+.snake {
+    width: 100%;
+    height: 100%;
+    background-color: #66ff66;
+    border: 1px solid #333;
+    position: relative;
+}
+
+.snake-head {
+    background-color: #33cc33;
+}
+
+.food {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #ff4d4d, #e60000);
+    position: relative;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.8);
+}
+
+h1 {
+    margin: 10px;
+    font-size: 2em;
+    color: #ffcccc;
+}
+
+#leaderboard {
+    margin-top: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+    width: 250px;
+    color: #ffcccc;
+}
+
+#leaderboard-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#leaderboard-list li {
+    padding: 5px 0;
+    border-bottom: 1px solid #ffcccc;
+}
+
+#username, #difficulty {
+    padding: 8px;
+    margin-top: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
