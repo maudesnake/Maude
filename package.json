@@ -1,0 +1,16 @@
+{
+  "name": "maude-snake-leaderboard",
+  "version": "1.0.0",
+  "description": "Live leaderboard backend for Maude's Snake Game",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.5.4"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
