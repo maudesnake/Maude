@@ -10,22 +10,40 @@ let gameInterval;
 
 // Function to initialize and start the game
 function initiateGame() {
-    const username = document.getElementById('username').value;
-    const difficulty = document.getElementById('difficulty').value;
-    if (!username) return alert("Please enter a username!");
-    document.getElementById('game-board').style.display = 'grid';
-    document.getElementById('score-container').style.display = 'block';
+    let username = document.getElementById('username').value;
+    if (username.trim() === "") {
+        username = localStorage.getItem('username') || prompt("Please enter your name:");
+    }
+    if (username) {
+        localStorage.setItem('username', username);
+    }
+    if (!username) {
+        username = prompt("Please enter your name:");
+        localStorage.setItem('username', username);
+    }
+    document.getElementById('username').value = username;
     document.getElementById('username').style.display = 'none';
     document.getElementById('difficulty').style.display = 'none';
     document.querySelector('button').style.display = 'none';
+    document.getElementById('instructions').style.display = 'none';
+    document.getElementById('game-board').style.display = 'grid'; // Ensure game board is visible
+    document.getElementById('score-container').style.display = 'block';
+
+    const difficulty = document.getElementById('difficulty').value;
+    snake = [{ x: 10, y: 10 }]; // Reset snake position
+    direction = { x: 1, y: 0 }; // Set initial direction
+    score = 0;
+    scoreElement.textContent = score; // Reset score display
+
+    placeFood(); // Place initial food
     startGame(difficulty);
 }
 
 // Start Game Logic with adjustable speed
 function startGame(speed) {
-    direction = { x: 1, y: 0 };
-    gameInterval = setInterval(gameLoop, speed);
-    document.addEventListener('keydown', changeDirection);
+    clearInterval(gameInterval); // Clear any existing intervals
+    gameInterval = setInterval(gameLoop, speed); // Start game loop
+    document.addEventListener('keydown', changeDirection); // Add key controls
 }
 
 // Game Loop Logic
@@ -73,13 +91,16 @@ function placeFood() {
 function gameOver() {
     clearInterval(gameInterval);
     saveScore(score);
-    alert(`Game Over! Final Score: ${score}`);
-    location.reload();
+
+    setTimeout(() => {
+        alert(`Game Over! Final Score: ${score}`);
+        location.reload();
+    }, 500);
 }
 
 // Board Update for Snake and Food
 function updateBoard() {
-    gameBoard.innerHTML = '';
+    gameBoard.innerHTML = ''; // Clear the game board
     snake.forEach((segment, index) => {
         const snakeElement = document.createElement('div');
         snakeElement.style.gridRowStart = segment.y + 1;
@@ -97,7 +118,7 @@ function updateBoard() {
 
 // Save Score to Local Leaderboard
 function saveScore(score) {
-    const username = document.getElementById('username').value;
+    const username = localStorage.getItem('username');
     let scores = JSON.parse(localStorage.getItem('leaderboard')) || [];
     scores.push({ name: username, score: score });
     scores.sort((a, b) => b.score - a.score);
